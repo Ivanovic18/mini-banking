@@ -1,0 +1,128 @@
+<svg viewBox="0 0 800 580" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Mini Banking - Arhitekturni dijagram</title>
+  <desc>Mikroservisna arhitektura sa 8 servisa, Feign komunikacijom, RabbitMQ i Gateway-em</desc>
+  <style>
+    text { font-family: -apple-system, 'Segoe UI', sans-serif; }
+    .title { font-size: 16px; font-weight: 700; fill: #1a1a1a; }
+    .svc-label { font-size: 11px; font-weight: 600; fill: white; }
+    .port-label { font-size: 9px; fill: white; opacity: 0.85; }
+    .legend-text { font-size: 10px; fill: #666; }
+    .arrow-label { font-size: 9px; fill: #555; }
+    .section-label { font-size: 10px; font-weight: 600; fill: #888; letter-spacing: 1px; }
+  </style>
+  <defs>
+    <marker id="arrow-feign" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#2a6db0" />
+    </marker>
+    <marker id="arrow-rabbit" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#e67e22" />
+    </marker>
+    <marker id="arrow-gw" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="#888" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="580" fill="white" />
+
+  <!-- Title -->
+  <text x="400" y="28" text-anchor="middle" class="title">Mini Banking — Arhitektura sistema</text>
+
+  <!-- Client -->
+  <rect x="340" y="48" width="120" height="36" rx="6" fill="#777" />
+  <text x="400" y="70" text-anchor="middle" class="svc-label">Klijent (Postman)</text>
+
+  <!-- Arrow client to gateway -->
+  <line x1="400" y1="84" x2="400" y2="110" stroke="#888" stroke-width="1.5" marker-end="url(#arrow-gw)" />
+  <text x="415" y="101" class="arrow-label">:8080</text>
+
+  <!-- INFRASTRUCTURE section -->
+  <text x="50" y="128" class="section-label">INFRASTRUKTURA</text>
+  <rect x="40" y="134" width="720" height="56" rx="8" fill="white" stroke="#ddd" stroke-dasharray="4,3" />
+
+  <!-- Gateway -->
+  <rect x="310" y="142" width="180" height="40" rx="6" fill="#1f3a5f" />
+  <text x="400" y="163" text-anchor="middle" class="svc-label">Gateway :8080</text>
+  <text x="400" y="176" text-anchor="middle" class="port-label">JWT + lb:// routing</text>
+
+  <!-- Eureka -->
+  <rect x="56" y="142" width="120" height="40" rx="6" fill="#6c3483" />
+  <text x="116" y="163" text-anchor="middle" class="svc-label">Eureka :8761</text>
+  <text x="116" y="176" text-anchor="middle" class="port-label">Service Discovery</text>
+
+  <!-- Config Server -->
+  <rect x="570" y="142" width="140" height="40" rx="6" fill="#117864" />
+  <text x="640" y="163" text-anchor="middle" class="svc-label">Config Server :8888</text>
+  <text x="640" y="176" text-anchor="middle" class="port-label">Konfiguracija</text>
+
+  <!-- BUSINESS SERVICES section -->
+  <text x="50" y="218" class="section-label">POSLOVNI SERVISI</text>
+
+  <!-- Gateway arrows to services -->
+  <line x1="340" y1="182" x2="175" y2="240" stroke="#888" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrow-gw)" />
+  <line x1="370" y1="182" x2="370" y2="240" stroke="#888" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrow-gw)" />
+  <line x1="430" y1="182" x2="545" y2="240" stroke="#888" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrow-gw)" />
+  <line x1="460" y1="182" x2="710" y2="240" stroke="#888" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrow-gw)" />
+
+  <!-- User Service -->
+  <rect x="100" y="240" width="150" height="50" rx="6" fill="#2a6db0" />
+  <text x="175" y="261" text-anchor="middle" class="svc-label">User Service :8081</text>
+  <text x="175" y="276" text-anchor="middle" class="port-label">Korisnici + Login (JWT)</text>
+
+  <!-- Account Service -->
+  <rect x="295" y="240" width="150" height="50" rx="6" fill="#2a6db0" />
+  <text x="370" y="261" text-anchor="middle" class="svc-label">Account Service :8082</text>
+  <text x="370" y="276" text-anchor="middle" class="port-label">Racuni + deposit/withdraw</text>
+
+  <!-- Transaction Service -->
+  <rect x="470" y="240" width="150" height="50" rx="6" fill="#c0392b" />
+  <text x="545" y="261" text-anchor="middle" class="svc-label">Transaction Svc :8083</text>
+  <text x="545" y="276" text-anchor="middle" class="port-label">Transakcije + Resilience4j</text>
+
+  <!-- Card Service -->
+  <rect x="635" y="240" width="150" height="50" rx="6" fill="#2a6db0" />
+  <text x="710" y="261" text-anchor="middle" class="svc-label">Card Service :8084</text>
+  <text x="710" y="276" text-anchor="middle" class="port-label">Kartice</text>
+
+  <!-- Feign arrows -->
+  <line x1="295" y1="258" x2="255" y2="258" stroke="#2a6db0" stroke-width="1.5" marker-end="url(#arrow-feign)" />
+  <text x="275" y="252" text-anchor="middle" class="arrow-label">Feign</text>
+
+  <line x1="470" y1="258" x2="450" y2="258" stroke="#c0392b" stroke-width="2" marker-end="url(#arrow-feign)" />
+  <text x="460" y="252" text-anchor="middle" class="arrow-label" fill="#c0392b">R4j</text>
+
+  <path d="M 635,270 Q 600,310 450,270" stroke="#2a6db0" stroke-width="1.5" fill="none" marker-end="url(#arrow-feign)" />
+  <text x="550" y="308" text-anchor="middle" class="arrow-label">Feign</text>
+
+  <path d="M 370,290 Q 370,330 545,330 Q 545,310 545,295" stroke="#2a6db0" stroke-width="1" stroke-dasharray="3,3" fill="none" marker-end="url(#arrow-feign)" />
+  <path d="M 370,290 Q 370,340 710,340 Q 710,310 710,295" stroke="#2a6db0" stroke-width="1" stroke-dasharray="3,3" fill="none" marker-end="url(#arrow-feign)" />
+  <text x="500" y="345" text-anchor="middle" class="arrow-label">Agregacija (overview)</text>
+
+  <!-- RabbitMQ -->
+  <rect x="420" y="400" width="160" height="44" rx="6" fill="#e67e22" />
+  <text x="500" y="420" text-anchor="middle" class="svc-label">RabbitMQ :5672</text>
+  <text x="500" y="434" text-anchor="middle" class="port-label">Message Broker</text>
+
+  <!-- Notification Service -->
+  <rect x="250" y="480" width="160" height="44" rx="6" fill="#2a6db0" />
+  <text x="330" y="500" text-anchor="middle" class="svc-label">Notification Svc :8085</text>
+  <text x="330" y="514" text-anchor="middle" class="port-label">Obavestenja</text>
+
+  <!-- transaction to RabbitMQ -->
+  <line x1="545" y1="290" x2="520" y2="396" stroke="#e67e22" stroke-width="1.5" marker-end="url(#arrow-rabbit)" />
+  <text x="555" y="360" class="arrow-label" fill="#e67e22">Event (async)</text>
+
+  <!-- RabbitMQ to notification -->
+  <line x1="460" y1="444" x2="370" y2="476" stroke="#e67e22" stroke-width="1.5" marker-end="url(#arrow-rabbit)" />
+  <text x="400" y="468" class="arrow-label" fill="#e67e22">Consume</text>
+
+  <!-- Legend -->
+  <rect x="40" y="490" width="180" height="72" rx="6" fill="white" stroke="#ddd" />
+  <text x="50" y="506" class="legend-text" font-weight="600">Legenda:</text>
+  <line x1="50" y1="520" x2="80" y2="520" stroke="#2a6db0" stroke-width="1.5" marker-end="url(#arrow-feign)" />
+  <text x="90" y="524" class="legend-text">Feign (sinhrono)</text>
+  <line x1="50" y1="538" x2="80" y2="538" stroke="#e67e22" stroke-width="1.5" marker-end="url(#arrow-rabbit)" />
+  <text x="90" y="542" class="legend-text">RabbitMQ (asinhrono)</text>
+  <line x1="50" y1="554" x2="80" y2="554" stroke="#888" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrow-gw)" />
+  <text x="90" y="558" class="legend-text">Gateway routing</text>
+</svg>

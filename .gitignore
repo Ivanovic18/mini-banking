@@ -1,0 +1,31 @@
+# Kompajlirani output
+target/
+*.class
+*.jar
+*.war
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Maven wrapper (generisan od Spring Initializr, nije potreban)
+.mvn/
+mvnw
+mvnw.cmd
+
+# Spring Boot generisani fajlovi (nisu potrebni na GitHubu)
+HELP.md
+.gitattributes
+
+# Word privremeni fajlovi
+~$*
+
+# Logovi
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
